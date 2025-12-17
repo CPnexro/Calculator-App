@@ -14,12 +14,17 @@
   </header>
   
   <main class="box-container">
-    <input type="text" placeholder="0" class="display" readonly>
+    
+    <div class="display-box">
+      <div class="expression" id="expression"> </div>
+      <div class="result" id="result">0</div>
+    </div>
+    
     <div class="container">
       <button class="box operator" value="clear">C</button>
       <button class="box operator" value="del">Del</button>
-      <button class="box operator" value="/">÷</button>
-      <button class="box operator" value="*">×</button>
+      <button class="box operator" value="÷">÷</button>
+      <button class="box operator" value="×">×</button>
       
       <button class="box number" value="7">7</button>
       <button class="box number" value="8">8</button>
