@@ -1,69 +1,64 @@
-const display = document.querySelector(".display");
+const expression = document.querySelector(".expression");
+const result = document.querySelector(".result");
 const buttons = document.querySelectorAll(".box");
 
+let current = "";
 let firstValue = "";
 let operator = "";
 
-buttons.forEach((button) => {
+buttons.forEach(button => {
   button.addEventListener("click", () => {
+    const value = button.value;
 
-    if (button.classList.contains("number") && button.value !== ".") {
-      display.value += button.value;
+    if (button.classList.contains("number")) {
+      if (value === "." && current.includes(".")) return;
+      current += value;
+      result.innerText = current;
     }
     
-    if (button.value === ".") {
-      if (!display.value.includes(".")) {
-        display.value += ".";
+    if (button.classList.contains("operator")) {
+      
+      if (value === "clear") {
+        current = firstValue = operator = "";
+        expression.innerText = "";
+        result.innerText = "0";
+        return;
       }
-    }
-    
-    if (
-      button.value === "+" ||
-      button.value === "-" ||
-      button.value === "*" ||
-      button.value === "/"
-    ) {
-      if (display.value === "") return;
-
-      firstValue = display.value;
-      operator = button.value;
-      display.value = "";
-    }
-
-    if (button.value === "=") {
-      let secondValue = display.value;
-      let result = 0;
-
-      if (operator === "+") {
-        result = Number(firstValue) + Number(secondValue);
-      } else if (operator === "-") {
-        result = Number(firstValue) - Number(secondValue);
-      } else if (operator === "*") {
-        result = Number(firstValue) * Number(secondValue);
-      } else if (operator === "/") {
-        if (Number(secondValue) === 0) {
-          display.value = "Error";
-          firstValue = "";
-          operator = "";
-          return;
+      
+      if (value === "del") {
+        current = current.slice(0, -1);
+        result.innerText = current || "0";
+        return;
+      }
+      
+      if (value === "=") {
+        if (!firstValue || !current) return;
+        
+        let calc;
+        if (operator === "+") calc = +firstValue + +current;
+        if (operator === "-") calc = firstValue - current;
+        if (operator === "×") calc = firstValue * current;
+        if (operator === "÷") {
+          if (current === "0") {
+            result.innerText = "Error bro";
+            return;
+          }
+          calc = firstValue / current;
         }
-        result = Number(firstValue) / Number(secondValue);
+        expression.innerText = `${firstValue} ${operator} ${current}`;
+        result.innerText = calc;
+        current = calc.toString();
+        firstValue = "";
+        operator = "";
+        return;
       }
-
-      display.value = result;
-      firstValue = "";
-      operator = "";
+      if (current === "") return;
+      firstValue = current;
+      operator = value;
+      expression.innerText = `${firstValue} ${operator}`;
+      current = "";
     }
-
-    if (button.value === "clear") {
-      display.value = "";
-      firstValue = "";
-      operator = "";
-    }
-
-    if (button.value === "del") {
-      display.value = display.value.slice(0, -1);
-    }
-
   });
 });
+    
+    
