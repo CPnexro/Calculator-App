@@ -1,53 +1,51 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Calculator</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Calculator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <header>
-    <h1>Calculator App</h1>
-  </header>
-  
-  <main class="box-container">
+    <canvas id="bgCanvas"></canvas>
     
-    <div class="display-box">
-      <div class="expression" id="expression"> </div>
-      <div class="result" id="result">0</div>
+    <div class="calculator">
+        <div class="display-container">
+            <canvas id="particleCanvas"></canvas>
+            <div class="history" id="history"></div>
+            <div class="display" id="display">0</div>
+        </div>
+        
+        <div class="buttons">
+            <button class="clear" onclick="clearAll()">AC</button>
+            <button class="function" onclick="deleteLastChar()">DEL</button>
+            <button class="function" onclick="appendOperator('%')">%</button>
+            <button class="operator" onclick="appendOperator('÷')">÷</button>
+            
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+            <button class="operator" onclick="appendOperator('×')">×</button>
+            
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+            <button class="operator" onclick="appendOperator('-')">−</button>
+            
+            <button onclick="appendNumber('1')">1</button>
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+            <button class="operator" onclick="appendOperator('+')">+</button>
+            
+            <button class="function" onclick="appendOperator('(')">(</button>
+            <button onclick="appendNumber('0')">0</button>
+            <button class="function" onclick="appendOperator(')')">)</button>
+            <button onclick="appendNumber('.')">.</button>
+            
+            <button class="equals" onclick="calculate()">=</button>
+        </div>
     </div>
-    
-    <div class="container">
-      <button class="box operator" value="clear">C</button>
-      <button class="box operator" value="del">Del</button>
-      <button class="box operator" value="÷">÷</button>
-      <button class="box operator" value="×">×</button>
-      
-      <button class="box number" value="7">7</button>
-      <button class="box number" value="8">8</button>
-      <button class="box number" value="9">9</button>
-      <button class="box operator" value="+">+</button>
-      
-      <button class="box number" value="4">4</button>
-      <button class="box number" value="5">5</button>
-      <button class="box number" value="6">6</button>
-      <button class="box operator" value="-">-</button>
-      
-      <button class="box number" value="1">1</button>
-      <button class="box number" value="2">2</button>
-      <button class="box number" value="3">3</button>
-      <button class="box operator" value="=">=</button>
-      
-      <button class="box number zero" value="0">0</button>
-      <button class="box number " value=".">.</button>
-      
-    </div>
-  </main>
-  
-  <script src="script.js"></script>
-</body>
 
+    <script src="script.js"></script>
+</body>
 </html>
