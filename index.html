@@ -1,51 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Calculator</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Nexro Calculator</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas id="bgCanvas"></canvas>
-    
-    <div class="calculator">
-        <div class="display-container">
-            <canvas id="particleCanvas"></canvas>
-            <div class="history" id="history"></div>
-            <div class="display" id="display">0</div>
-        </div>
-        
-        <div class="buttons">
-            <button class="clear" onclick="clearAll()">AC</button>
-            <button class="function" onclick="deleteLastChar()">DEL</button>
-            <button class="function" onclick="appendOperator('%')">%</button>
-            <button class="operator" onclick="appendOperator('÷')">÷</button>
-            
-            <button onclick="appendNumber('7')">7</button>
-            <button onclick="appendNumber('8')">8</button>
-            <button onclick="appendNumber('9')">9</button>
-            <button class="operator" onclick="appendOperator('×')">×</button>
-            
-            <button onclick="appendNumber('4')">4</button>
-            <button onclick="appendNumber('5')">5</button>
-            <button onclick="appendNumber('6')">6</button>
-            <button class="operator" onclick="appendOperator('-')">−</button>
-            
-            <button onclick="appendNumber('1')">1</button>
-            <button onclick="appendNumber('2')">2</button>
-            <button onclick="appendNumber('3')">3</button>
-            <button class="operator" onclick="appendOperator('+')">+</button>
-            
-            <button class="function" onclick="appendOperator('(')">(</button>
-            <button onclick="appendNumber('0')">0</button>
-            <button class="function" onclick="appendOperator(')')">)</button>
-            <button onclick="appendNumber('.')">.</button>
-            
-            <button class="equals" onclick="calculate()">=</button>
-        </div>
-    </div>
 
-    <script src="script.js"></script>
+<div class="calculator">
+
+  <div class="top-bar">
+    <button class="history-btn" onclick="toggleHistory()">⏱</button>
+  </div>
+
+  <div id="display">
+    <span id="displayText">0</span>
+    <img id="nexroImg" src="nexro.jpg" alt="Nexro">
+  </div>
+  
+  <div id="historyPanel">
+    <h3>History</h3>
+    <ul id="historyList"></ul>
+    <button class="close-history" onclick="toggleHistory()">Close</button>
+  </div>
+
+  <div class="buttons">
+    <button class="op" onclick="clearAll()">AC</button>
+    <button class="op" onclick="backspace()">⌫</button>
+    <button class="op" onclick="toggleSign()">±</button>
+    <button class="op" onclick="append('/')">÷</button>
+
+    <button onclick="append('7')">7</button>
+    <button onclick="append('8')">8</button>
+    <button onclick="append('9')">9</button>
+    <button class="op" onclick="append('*')">×</button>
+
+    <button onclick="append('4')">4</button>
+    <button onclick="append('5')">5</button>
+    <button onclick="append('6')">6</button>
+    <button class="op" onclick="append('-')">−</button>
+
+    <button onclick="append('1')">1</button>
+    <button onclick="append('2')">2</button>
+    <button onclick="append('3')">3</button>
+    <button class="op" onclick="append('+')">+</button>
+
+    <button onclick="append('%')">%</button>
+    <button onclick="append('0')">0</button>
+    <button onclick="append('.')">.</button>
+    <button class="equal" onclick="calculate()">=</button>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
