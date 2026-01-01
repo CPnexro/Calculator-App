@@ -1,10 +1,10 @@
-let displayText = document.getElementById("displayText");
-let nexroImg = document.getElementById("nexroImg");
-let historyPanel = document.getElementById("historyPanel");
-let historyList = document.getElementById("historyList");
+const displayText = document.getElementById("displayText");
+const nexroImg = document.getElementById("nexroImg");
+const historyPanel = document.getElementById("historyPanel");
+const historyList = document.getElementById("historyList");
 
-let expression = "";      
-let displayValue = "";   
+let expression = "";
+let displayValue = "";
 
 let history = JSON.parse(localStorage.getItem("calcHistory")) || [];
 renderHistory();
@@ -12,12 +12,19 @@ renderHistory();
 function append(val) {
   hideNexro();
 
-  if (val === '*') {
-    expression += '*';
-    displayValue += '×';
-  } else if (val === '/') {
-    expression += '/';
-    displayValue += '÷';
+  if (['+', '-', '*', '/', '%'].includes(val)) {
+    expression += val;
+    displayValue += (val === '*') ? '×' : (val === '/') ? '÷' : val;
+    displayText.innerText = displayValue;
+    return;
+  }
+
+  let parts = expression.split(/[\+\-\*\/%]/);
+  let last = parts[parts.length - 1];
+
+  if (last === "0" && val !== ".") {
+    expression = expression.slice(0, -1) + val;
+    displayValue = displayValue.slice(0, -1) + val;
   } else {
     expression += val;
     displayValue += val;
@@ -48,14 +55,13 @@ function toggleSign() {
 }
 
 function calculate() {
-  
   if (expression === "0") {
     showNexro();
     return;
   }
 
   try {
-    let result = eval(expression);
+    const result = eval(expression);
     saveHistory(`${displayValue} = ${result}`);
     expression = result.toString();
     displayValue = expression;
@@ -68,11 +74,17 @@ function calculate() {
 function showNexro() {
   displayText.style.display = "none";
   nexroImg.style.display = "block";
+
+
+  nexroImg.classList.remove("nexro-animate");
+  void nexroImg.offsetWidth;
+  nexroImg.classList.add("nexro-animate");
 }
 
 function hideNexro() {
   displayText.style.display = "block";
   nexroImg.style.display = "none";
+  nexroImg.classList.remove("nexro-animate");
 }
 
 function toggleHistory() {
@@ -90,7 +102,7 @@ function saveHistory(entry) {
 function renderHistory() {
   historyList.innerHTML = "";
   history.forEach(h => {
-    let li = document.createElement("li");
+    const li = document.createElement("li");
     li.innerText = h;
     historyList.appendChild(li);
   });
